@@ -1,4 +1,4 @@
-# 🩺 Diabetes Prediction MLOps Pipeline on AWS EKS
+# Diabetes Prediction MLOps Pipeline on AWS EKS
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com/)
@@ -10,14 +10,14 @@ Production-ready MLOps end-to-end repository for training, containerizing, publi
 
 ---
 
-## 🏗️ Architecture & Project Overview
+## Architecture and Project Overview
 
 ```
                           [ Client / Web / Mobile ]
                                       │
                                       ▼
                         [ AWS Network Load Balancer ]
-                    (a7e4c7a0...elb.ap-south-1.amazonaws.com)
+                    (<NLB_HOSTNAME>.elb.ap-south-1.amazonaws.com)
                                       │
                                       ▼
                            [ EKS Cluster v1.36 ]
@@ -35,15 +35,15 @@ Production-ready MLOps end-to-end repository for training, containerizing, publi
 ```
 
 ### Key Highlights
-- **Model**: Scikit-Learn Random Forest Classifier trained on the Pima Indians Diabetes Dataset.
-- **REST API**: High-performance FastAPI server with input validation (Pydantic), readiness/liveness health probes, and automated OpenAPI `/docs`.
-- **Containerization**: Multi-stage Docker build targeting `linux/amd64` architecture, published to Amazon ECR.
-- **Infrastructure**: Provisioned AWS EKS Cluster (Kubernetes 1.36, `STANDARD` support), dedicated IAM Least-Privilege roles, EC2 Launch Template with encrypted `gp3` root volumes, and AWS Network Load Balancer (NLB).
-- **Verification**: 100% automated smoke test coverage (11/11 tests passing against local container, port-forwarded cluster service, and live public NLB).
+* **Model**: Scikit-Learn Random Forest Classifier trained on the Pima Indians Diabetes Dataset.
+* **REST API**: High-performance FastAPI server with input validation (Pydantic), readiness/liveness health probes, and automated OpenAPI `/docs`.
+* **Containerization**: Multi-stage Docker build targeting `linux/amd64` architecture, published to Amazon ECR.
+* **Infrastructure**: Provisioned AWS EKS Cluster (Kubernetes 1.36, `STANDARD` support), dedicated IAM Least-Privilege roles, EC2 Launch Template with encrypted `gp3` root volumes, and AWS Network Load Balancer (NLB).
+* **Verification**: 100% automated smoke test coverage (11/11 tests passing against local container, port-forwarded cluster service, and live public NLB).
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 .
@@ -64,16 +64,15 @@ Production-ready MLOps end-to-end repository for training, containerizing, publi
 │   ├── cluster-config.json              # EKS cluster creation configuration
 │   └── nodegroup-config.json            # Managed node group configuration
 └── reports/                    # Comprehensive phase audit reports
-    ├── ecr_publication_results.md       # ECR publication audit & digest proof
-    ├── eks_preparation.md              # EKS preparation & cost estimation report
-    ├── eks_provisioning_results.md      # EKS infrastructure & node group audit
-    ├── eks_deployment_results.md        # Kubernetes deployment & pod audit
-    └── public_access_results.md         # Public NLB & end-to-end verification audit
+    ├── mlops_pipeline_report.md         # Master pipeline execution & audit report
+    ├── metrics.csv                      # Baseline model performance metrics
+    ├── confusion_matrix.png             # Model evaluation confusion matrix
+    └── roc_curve.png                    # Model evaluation ROC curve
 ```
 
 ---
 
-## 📊 Dataset & Feature Requirements
+## Dataset and Feature Requirements
 
 The model predicts diabetes likelihood based on 5 clinical parameters:
 
@@ -98,9 +97,9 @@ The model predicts diabetes likelihood based on 5 clinical parameters:
 
 ---
 
-## 🚀 Quick Start Guide
+## Quick Start Guide
 
-### 1. Local Setup & Training
+### 1. Local Setup and Training
 
 ```bash
 # Clone the repository
@@ -130,7 +129,7 @@ python3 test_api.py --base-url http://127.0.0.1:8000
 
 ---
 
-## 🐳 Containerization & Amazon ECR
+## Containerization and Amazon ECR
 
 ### Build Docker Image for `linux/amd64`
 
@@ -138,7 +137,7 @@ python3 test_api.py --base-url http://127.0.0.1:8000
 docker buildx build --platform linux/amd64 --load -t diabetes-api:v1 .
 ```
 
-### Run Container Locally & Test
+### Run Container Locally and Test
 
 ```bash
 docker run -d --name diabetes-api-container -p 127.0.0.1:8000:8000 diabetes-api:v1
@@ -160,65 +159,65 @@ docker push <AWS_ACCOUNT_ID>.dkr.ecr.ap-south-1.amazonaws.com/diabetes-api:v1
 
 ---
 
-## ☸️ Kubernetes Deployment on Amazon EKS
+## Kubernetes Deployment on Amazon EKS
 
 ### 1. Deploy Internal Application Stack
 
 ```bash
-./bin/kubectl apply -f k8s-deploy.yml
+kubectl apply -f k8s-deploy.yml
 ```
 
-### 2. Verify Rollout & System Health
+### 2. Verify Rollout and System Health
 
 ```bash
-./bin/kubectl -n mlops rollout status deployment/diabetes-api --timeout=300s
-./bin/kubectl -n mlops get pods -o wide
-./bin/kubectl -n mlops get service diabetes-api-service
+kubectl -n mlops rollout status deployment/diabetes-api --timeout=300s
+kubectl -n mlops get pods -o wide
+kubectl -n mlops get service diabetes-api-service
 ```
 
-### 3. (Optional) Local Port-Forwarding
+### 3. Local Port-Forwarding (Optional)
 
 ```bash
-./bin/kubectl -n mlops port-forward service/diabetes-api-service 8000:80 --address 127.0.0.1
+kubectl -n mlops port-forward service/diabetes-api-service 8000:80 --address 127.0.0.1
 # Test via: python3 test_api.py --base-url http://127.0.0.1:8000
 ```
 
 ---
 
-## 🌐 Public Network Load Balancer (NLB) Access
+## Public Network Load Balancer (NLB) Access
 
 To expose the API publicly across the internet:
 
 ```bash
-./bin/kubectl apply -f k8s-public-service.yml
+kubectl apply -f k8s-public-service.yml
 ```
 
 ### Live Public Endpoints
-* **Public Base URL:** `http://a7e4c7a0bef2c49f092a59a812d8cf61-ad4075c41b4880ff.elb.ap-south-1.amazonaws.com`
-* **Swagger UI Documentation:** `http://a7e4c7a0bef2c49f092a59a812d8cf61-ad4075c41b4880ff.elb.ap-south-1.amazonaws.com/docs`
+* **Public Base URL:** `http://<NLB_HOSTNAME>.elb.ap-south-1.amazonaws.com`
+* **Swagger UI Documentation:** `http://<NLB_HOSTNAME>.elb.ap-south-1.amazonaws.com/docs`
 
 ### Run Smoke Tests Against Live Public Endpoint
 
 ```bash
-python3 test_api.py --base-url http://a7e4c7a0bef2c49f092a59a812d8cf61-ad4075c41b4880ff.elb.ap-south-1.amazonaws.com
+python3 test_api.py --base-url http://<NLB_HOSTNAME>.elb.ap-south-1.amazonaws.com
 ```
 
 ---
 
-## 🧹 Infrastructure Teardown & Cleanup
+## Infrastructure Teardown and Cleanup
 
 To remove public load balancing while leaving the application running internally:
 
 ```bash
-./bin/kubectl delete -f k8s-public-service.yml
+kubectl delete -f k8s-public-service.yml
 ```
 
 To tear down all AWS resources and stop all billing:
 
 ```bash
 # 1. Delete Public Service & Internal Stack
-./bin/kubectl delete -f k8s-public-service.yml
-./bin/kubectl delete -f k8s-deploy.yml
+kubectl delete -f k8s-public-service.yml
+kubectl delete -f k8s-deploy.yml
 
 # 2. Delete Managed Node Group
 aws eks delete-nodegroup --cluster-name diabetes-mlops --nodegroup-name diabetes-workers --region ap-south-1
@@ -240,6 +239,6 @@ aws iam delete-role --role-name diabetes-eks-node-role
 
 ---
 
-## 📜 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

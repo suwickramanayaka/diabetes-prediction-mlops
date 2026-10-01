@@ -49,9 +49,9 @@
         "eks:ListTagsForResource"
       ],
       "Resource": [
-        "arn:aws:eks:ap-south-1:122773994215:cluster/diabetes-mlops",
-        "arn:aws:eks:ap-south-1:122773994215:nodegroup/diabetes-mlops/*/*",
-        "arn:aws:eks:ap-south-1:122773994215:access-entry/diabetes-mlops/*"
+        "arn:aws:eks:ap-south-1:<AWS_ACCOUNT_ID>:cluster/diabetes-mlops",
+        "arn:aws:eks:ap-south-1:<AWS_ACCOUNT_ID>:nodegroup/diabetes-mlops/*/*",
+        "arn:aws:eks:ap-south-1:<AWS_ACCOUNT_ID>:access-entry/diabetes-mlops/*"
       ]
     },
     {
@@ -65,9 +65,9 @@
         "iam:ListAttachedRolePolicies"
       ],
       "Resource": [
-        "arn:aws:iam::122773994215:role/diabetes-eks-cluster-role",
-        "arn:aws:iam::122773994215:role/diabetes-eks-node-role",
-        "arn:aws:iam::122773994215:role/aws-service-role/eks-nodegroup.amazonaws.com/AWSServiceRoleForAmazonEKSNodegroup"
+        "arn:aws:iam::<AWS_ACCOUNT_ID>:role/diabetes-eks-cluster-role",
+        "arn:aws:iam::<AWS_ACCOUNT_ID>:role/diabetes-eks-node-role",
+        "arn:aws:iam::<AWS_ACCOUNT_ID>:role/aws-service-role/eks-nodegroup.amazonaws.com/AWSServiceRoleForAmazonEKSNodegroup"
       ]
     },
     {
@@ -78,8 +78,8 @@
         "iam:DetachRolePolicy"
       ],
       "Resource": [
-        "arn:aws:iam::122773994215:role/diabetes-eks-cluster-role",
-        "arn:aws:iam::122773994215:role/diabetes-eks-node-role"
+        "arn:aws:iam::<AWS_ACCOUNT_ID>:role/diabetes-eks-cluster-role",
+        "arn:aws:iam::<AWS_ACCOUNT_ID>:role/diabetes-eks-node-role"
       ],
       "Condition": {
         "ArnEquals": {
@@ -97,8 +97,8 @@
       "Effect": "Allow",
       "Action": "iam:PassRole",
       "Resource": [
-        "arn:aws:iam::122773994215:role/diabetes-eks-cluster-role",
-        "arn:aws:iam::122773994215:role/diabetes-eks-node-role"
+        "arn:aws:iam::<AWS_ACCOUNT_ID>:role/diabetes-eks-cluster-role",
+        "arn:aws:iam::<AWS_ACCOUNT_ID>:role/diabetes-eks-node-role"
       ],
       "Condition": {
         "StringEquals": {
@@ -148,7 +148,7 @@
       "Sid": "ReadWorkerRoleInstanceProfiles",
       "Effect": "Allow",
       "Action": "iam:ListInstanceProfilesForRole",
-      "Resource": "arn:aws:iam::122773994215:role/diabetes-eks-node-role"
+      "Resource": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/diabetes-eks-node-role"
     }
   ]
 }

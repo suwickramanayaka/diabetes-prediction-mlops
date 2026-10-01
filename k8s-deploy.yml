@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: diabetes-api
-        image: 122773994215.dkr.ecr.ap-south-1.amazonaws.com/diabetes-api@sha256:5e88ae2f0a3d6a70bc1cb336f240c476e674911dcd2179b168e333ecca99bec8
+        image: <AWS_ACCOUNT_ID>.dkr.ecr.ap-south-1.amazonaws.com/diabetes-api@sha256:5e88ae2f0a3d6a70bc1cb336f240c476e674911dcd2179b168e333ecca99bec8
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000

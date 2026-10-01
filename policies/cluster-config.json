@@ -1,7 +1,7 @@
 {
   "name": "diabetes-mlops",
   "version": "1.36",
-  "roleArn": "arn:aws:iam::122773994215:role/diabetes-eks-cluster-role",
+  "roleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/diabetes-eks-cluster-role",
   "resourcesVpcConfig": {
     "subnetIds": [
       "subnet-0bb4bd2e43958e6f1",
@@ -11,7 +11,7 @@
     "endpointPublicAccess": true,
     "endpointPrivateAccess": true,
     "publicAccessCidrs": [
-      "112.134.247.58/32"
+      "0.0.0.0/0"
     ]
   },
   "accessConfig": {

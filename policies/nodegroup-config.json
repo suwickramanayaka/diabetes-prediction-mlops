@@ -15,7 +15,7 @@
     "t3.small"
   ],
   "amiType": "AL2023_x86_64_STANDARD",
-  "nodeRole": "arn:aws:iam::122773994215:role/diabetes-eks-node-role",
+  "nodeRole": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/diabetes-eks-node-role",
   "launchTemplate": {
     "name": "diabetes-node-lt",
     "version": "1"
