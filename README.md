@@ -12,6 +12,10 @@ Production-ready MLOps end-to-end repository for training, containerizing, publi
 
 ## Architecture and Project Overview
 
+![Diabetes Prediction MLOps Architecture](docs/architecture.png)
+
+*View vector source: [docs/architecture.svg](docs/architecture.svg)*
+
 ```
                           [ Client / Web / Mobile ]
                                       │
@@ -56,6 +60,9 @@ Production-ready MLOps end-to-end repository for training, containerizing, publi
 ├── k8s-deploy.yml              # Kubernetes Namespace, Deployment, and ClusterIP Service
 ├── k8s-public-service.yml       # Kubernetes LoadBalancer Service (AWS NLB)
 ├── sample-request.json         # Sample JSON request payload
+├── docs/                       # Architecture diagrams & documentation assets
+│   ├── architecture.png        # High-resolution PNG architecture diagram
+│   └── architecture.svg        # Vector SVG architecture diagram source
 ├── policies/                   # IAM policies & cluster provisioning templates
 │   ├── diabetes-provisioner-policy.json  # Operator IAM policy definition
 │   ├── cluster-trust-policy.json        # EKS cluster role trust policy
