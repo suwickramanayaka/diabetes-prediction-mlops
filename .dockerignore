@@ -1,0 +1,27 @@
+# Local virtual environments
+.venv/
+env/
+venv/
+ENV/
+
+# Git metadata
+.git/
+.gitignore
+
+# Python cache & build files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Local configuration and secrets
+.env
+.env.*
+.DS_Store
+
+# Documentation and generated reports
+reports/
+*.pdf
+*.md
+!README.md

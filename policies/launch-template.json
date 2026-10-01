@@ -1,0 +1,22 @@
+{
+  "LaunchTemplateName": "diabetes-node-lt",
+  "VersionDescription": "EKS 1.36 Managed Node Group Launch Template with explicit GP3 root volume",
+  "LaunchTemplateData": {
+    "BlockDeviceMappings": [
+      {
+        "DeviceName": "/dev/xvda",
+        "Ebs": {
+          "VolumeSize": 20,
+          "VolumeType": "gp3",
+          "Encrypted": true,
+          "DeleteOnTermination": true
+        }
+      }
+    ],
+    "MetadataOptions": {
+      "HttpTokens": "required",
+      "HttpPutResponseHopLimit": 2,
+      "HttpEndpoint": "enabled"
+    }
+  }
+}

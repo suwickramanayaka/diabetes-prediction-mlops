@@ -1,11 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mlops
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: diabetes-api
+  namespace: mlops
   labels:
     app: diabetes-api
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: diabetes-api
@@ -16,20 +22,48 @@ spec:
     spec:
       containers:
       - name: diabetes-api
-        image: your-dockerhub-username/diabetes-api:latest
+        image: 122773994215.dkr.ecr.ap-south-1.amazonaws.com/diabetes-api@sha256:5e88ae2f0a3d6a70bc1cb336f240c476e674911dcd2179b168e333ecca99bec8
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
-        imagePullPolicy: Always
+          name: http
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        startupProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          failureThreshold: 12
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: diabetes-api-service
+  namespace: mlops
 spec:
+  type: ClusterIP
   selector:
     app: diabetes-api
   ports:
     - protocol: TCP
       port: 80
       targetPort: 8000
-  type: LoadBalancer

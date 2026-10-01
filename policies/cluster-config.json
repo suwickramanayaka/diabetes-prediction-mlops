@@ -1,0 +1,24 @@
+{
+  "name": "diabetes-mlops",
+  "version": "1.36",
+  "roleArn": "arn:aws:iam::122773994215:role/diabetes-eks-cluster-role",
+  "resourcesVpcConfig": {
+    "subnetIds": [
+      "subnet-0bb4bd2e43958e6f1",
+      "subnet-09520f30aa76a511e",
+      "subnet-084d6fc4be8c753f0"
+    ],
+    "endpointPublicAccess": true,
+    "endpointPrivateAccess": true,
+    "publicAccessCidrs": [
+      "112.134.247.58/32"
+    ]
+  },
+  "accessConfig": {
+    "authenticationMode": "API_AND_CONFIG_MAP",
+    "bootstrapClusterCreatorAdminPermissions": true
+  },
+  "upgradePolicy": {
+    "supportType": "STANDARD"
+  }
+}

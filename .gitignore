@@ -130,11 +130,19 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.venv/
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+
+# Model artifacts
+*.pkl
+diabetes_model.pkl
+
+# Project-local tools
+bin/
 
 # Spyder project settings
 .spyderproject
@@ -186,9 +194,6 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-# Cursor
-#  Cursor is an AI-powered code editor. `.cursorignore` specifies files/directories to
-#  exclude from AI features like autocomplete and code analysis. Recommended for sensitive data
-#  refer to https://docs.cursor.com/context/ignore-files
-.cursorignore
-.cursorindexingignore
+# OS and Credential files
+.DS_Store
+*.csv

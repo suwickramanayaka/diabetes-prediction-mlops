@@ -2,7 +2,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
-import numpy as np
+import pandas as pd
 
 app = FastAPI()
 model = joblib.load("diabetes_model.pkl")
@@ -20,6 +20,12 @@ def read_root():
 
 @app.post("/predict")
 def predict(data: DiabetesInput):
-    input_data = np.array([[data.Pregnancies, data.Glucose, data.BloodPressure, data.BMI, data.Age]])
+    input_data = pd.DataFrame([{
+        "Pregnancies": data.Pregnancies,
+        "Glucose": data.Glucose,
+        "BloodPressure": data.BloodPressure,
+        "BMI": data.BMI,
+        "Age": data.Age
+    }])
     prediction = model.predict(input_data)[0]
     return {"diabetic": bool(prediction)}

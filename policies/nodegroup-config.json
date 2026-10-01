@@ -1,0 +1,24 @@
+{
+  "clusterName": "diabetes-mlops",
+  "nodegroupName": "diabetes-workers",
+  "scalingConfig": {
+    "minSize": 1,
+    "maxSize": 1,
+    "desiredSize": 1
+  },
+  "subnets": [
+    "subnet-0bb4bd2e43958e6f1",
+    "subnet-09520f30aa76a511e",
+    "subnet-084d6fc4be8c753f0"
+  ],
+  "instanceTypes": [
+    "t3.small"
+  ],
+  "amiType": "AL2023_x86_64_STANDARD",
+  "nodeRole": "arn:aws:iam::122773994215:role/diabetes-eks-node-role",
+  "launchTemplate": {
+    "name": "diabetes-node-lt",
+    "version": "1"
+  },
+  "capacityType": "ON_DEMAND"
+}
