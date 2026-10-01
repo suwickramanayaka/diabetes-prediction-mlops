@@ -14,8 +14,6 @@ Production-ready MLOps end-to-end repository for training, containerizing, publi
 
 ![Diabetes Prediction MLOps Architecture](docs/architecture.png)
 
-*View vector source: [docs/architecture.svg](docs/architecture.svg)*
-
 ```
                           [ Client / Web / Mobile ]
                                       │
@@ -63,8 +61,7 @@ Production-ready MLOps end-to-end repository for training, containerizing, publi
 ├── docs/                       # Architecture diagrams & documentation screenshots
 │   ├── api_docs_execution.png  # Live endpoint execution verification
 │   ├── api_docs_overview.png   # OpenAPI Swagger UI interface
-│   ├── architecture.png        # High-resolution PNG architecture diagram
-│   ├── architecture.svg        # Vector SVG architecture diagram source
+│   ├── architecture.png        # System architecture diagram
 │   ├── aws_ecr_console.png     # Amazon ECR private repository console (sanitized)
 │   ├── aws_eks_console.png     # Amazon EKS cluster console (sanitized)
 │   └── aws_iam_console.png     # AWS IAM operator identity console (sanitized)
