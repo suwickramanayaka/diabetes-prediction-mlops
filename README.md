@@ -60,9 +60,14 @@ Production-ready MLOps end-to-end repository for training, containerizing, publi
 ├── k8s-deploy.yml              # Kubernetes Namespace, Deployment, and ClusterIP Service
 ├── k8s-public-service.yml       # Kubernetes LoadBalancer Service (AWS NLB)
 ├── sample-request.json         # Sample JSON request payload
-├── docs/                       # Architecture diagrams & documentation assets
+├── docs/                       # Architecture diagrams & documentation screenshots
+│   ├── api_docs_execution.png  # Live endpoint execution verification
+│   ├── api_docs_overview.png   # OpenAPI Swagger UI interface
 │   ├── architecture.png        # High-resolution PNG architecture diagram
-│   └── architecture.svg        # Vector SVG architecture diagram source
+│   ├── architecture.svg        # Vector SVG architecture diagram source
+│   ├── aws_ecr_console.png     # Amazon ECR private repository console (sanitized)
+│   ├── aws_eks_console.png     # Amazon EKS cluster console (sanitized)
+│   └── aws_iam_console.png     # AWS IAM operator identity console (sanitized)
 ├── policies/                   # IAM policies & cluster provisioning templates
 │   ├── diabetes-provisioner-policy.json  # Operator IAM policy definition
 │   ├── cluster-trust-policy.json        # EKS cluster role trust policy
@@ -164,6 +169,9 @@ docker tag diabetes-api:v1 <AWS_ACCOUNT_ID>.dkr.ecr.ap-south-1.amazonaws.com/dia
 docker push <AWS_ACCOUNT_ID>.dkr.ecr.ap-south-1.amazonaws.com/diabetes-api:v1
 ```
 
+### Amazon ECR Console Verification
+![Amazon ECR Private Repository Console](docs/aws_ecr_console.png)
+
 ---
 
 ## Kubernetes Deployment on Amazon EKS
@@ -189,6 +197,10 @@ kubectl -n mlops port-forward service/diabetes-api-service 8000:80 --address 127
 # Test via: python3 test_api.py --base-url http://127.0.0.1:8000
 ```
 
+### AWS Infrastructure Console Verification
+![Amazon EKS Cluster Console](docs/aws_eks_console.png)
+![AWS IAM Operator Console](docs/aws_iam_console.png)
+
 ---
 
 ## Public Network Load Balancer (NLB) Access
@@ -202,6 +214,11 @@ kubectl apply -f k8s-public-service.yml
 ### Live Public Endpoints
 * **Public Base URL:** `http://<NLB_HOSTNAME>.elb.ap-south-1.amazonaws.com`
 * **Swagger UI Documentation:** `http://<NLB_HOSTNAME>.elb.ap-south-1.amazonaws.com/docs`
+
+### Interactive OpenAPI Documentation & Verification
+
+![FastAPI OpenAPI Endpoint Documentation](docs/api_docs_overview.png)
+![FastAPI Live Execution & Endpoint Verification](docs/api_docs_execution.png)
 
 ### Run Smoke Tests Against Live Public Endpoint
 
